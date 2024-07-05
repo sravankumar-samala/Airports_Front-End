@@ -1,11 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { useReducer, createContext, useContext } from "react";
+import { airportsList } from "../data/airportsData";
 
 const AirportsContext = createContext();
 
 const initialState = {
   isDarkTheme: window.matchMedia("(prefers-color-scheme: dark)").matches,
+  airportsList,
 };
 
 const reducer = (state, action) => {
@@ -18,7 +20,10 @@ const reducer = (state, action) => {
 };
 
 function AirportsContextProvider({ children }) {
-  const [{ isDarkTheme }, dispatch] = useReducer(reducer, initialState);
+  const [{ isDarkTheme, airportsList }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
 
   const handleDispatch = (type, payload) => dispatch({ type, payload });
 
@@ -26,6 +31,7 @@ function AirportsContextProvider({ children }) {
     <AirportsContext.Provider
       value={{
         isDarkTheme,
+        airportsList,
         handleDispatch,
       }}
     >
